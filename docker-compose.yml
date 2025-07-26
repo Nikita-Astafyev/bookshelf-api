@@ -13,6 +13,8 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=bookshelf
+      - DB_SSLMODE=disable
+      - JWT_SECRET_KEY=your-very-secret-key-here
     volumes:
       - ./migrations:/app/migrations
 

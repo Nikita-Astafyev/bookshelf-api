@@ -1,17 +1,28 @@
 package main
 
 import (
+	"github.com/Nikita-Astafyev/bookshelf-api/internal/config"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/gommon/log"
 )
 
 func main() {
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		panic(err)
+	}
+
 	e := echo.New()
-	e.Logger.SetLevel(log.INFO)
+
+	e.Server.ReadTimeout = cfg.Server.ReadTimeout
+	e.Server.WriteTimeout = cfg.Server.WriteTimeout
+
+	if cfg.Server.Debug {
+		e.Debug = true
+	}
 
 	e.GET("/", func(c echo.Context) error {
 		return c.String(200, "BookShelf API is running")
 	})
 
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":" + cfg.Server.Port))
 }
