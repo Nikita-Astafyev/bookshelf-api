@@ -34,7 +34,7 @@ func (c *BookController) CreateBook(ctx echo.Context) error {
 		})
 	}
 
-	return ctx.JSON(http.StatusOK, createBook)
+	return ctx.JSON(http.StatusCreated, createBook)
 }
 
 func (c *BookController) GetBook(ctx echo.Context) error {

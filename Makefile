@@ -9,3 +9,6 @@ migrate:
 
 logs:
 	docker-compose logs -f app
+
+test:
+	go test -v ./...
